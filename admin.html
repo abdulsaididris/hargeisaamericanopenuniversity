@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | AOU Hargeisa Branch</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body { background: #f0f2f8; }
+
+    /* ---- Admin Layout ---- */
+    .admin-wrapper {
+      display: flex;
+      min-height: calc(100vh - 120px);
+    }
+
+    /* ---- Sidebar ---- */
+    .admin-sidebar {
+      width: 240px;
+      flex-shrink: 0;
+      background: var(--aou-navy);
+      color: white;
+      padding: 28px 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar-title {
+      padding: 0 24px 20px;
+      font-family: 'Outfit', serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--aou-gold-light);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      margin-bottom: 12px;
+    }
+
+    .sidebar-nav a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 11px 24px;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.75);
+      transition: all 0.2s;
+      border-left: 3px solid transparent;
+    }
+
+    .sidebar-nav a:hover,
+    .sidebar-nav a.active {
+      background: rgba(255,255,255,0.08);
+      color: white;
+      border-left-color: var(--aou-gold);
+    }
+
+    .sidebar-nav .nav-section {
+      padding: 16px 24px 6px;
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      font-weight: 700;
+    }
+
+    /* ---- Main Content ---- */
+    .admin-main {
+      flex: 1;
+      padding: 32px 36px;
+      overflow-y: auto;
+    }
+
+    .admin-page-title {
+      font-size: 24px;
+      margin-bottom: 6px;
+      color: var(--aou-navy);
+    }
+
+    .admin-page-subtitle {
+      font-size: 13px;
+      color: #6b7280;
+      margin-bottom: 28px;
+    }
+
+    /* ---- Stat Cards ---- */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 18px;
+      margin-bottom: 32px;
+    }
+
+    .stat-card {
+      background: white;
+      border-radius: 8px;
+      padding: 20px 22px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+      border-top: 4px solid var(--aou-navy);
+    }
+
+    .stat-card.gold { border-top-color: var(--aou-gold); }
+    .stat-card.green { border-top-color: #10b981; }
+    .stat-card.red { border-top-color: #ef4444; }
+
+    .stat-card .stat-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #9ca3af;
+      margin-bottom: 8px;
+    }
+
+    .stat-card .stat-value {
+      font-size: 32px;
+      font-weight: 800;
+      font-family: 'Outfit', sans-serif;
+      color: var(--aou-navy);
+      line-height: 1;
+    }
+
+    .stat-card .stat-sub {
+      font-size: 12px;
+      color: #6b7280;
+      margin-top: 4px;
+    }
+
+    /* ---- Tables ---- */
+    .admin-card {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+      margin-bottom: 28px;
+      overflow: hidden;
+    }
+
+    .admin-card-header {
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--aou-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .admin-card-header h3 {
+      font-size: 15px;
+      margin: 0;
+      color: var(--aou-navy);
+    }
+
+    .admin-card-body { padding: 0; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    thead th {
+      background: #f8fafc;
+      padding: 10px 16px;
+      text-align: left;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #6b7280;
+      border-bottom: 1px solid var(--aou-border);
+    }
+
+    tbody tr {
+      border-bottom: 1px solid var(--aou-border);
+      transition: background 0.15s;
+    }
+
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: #f8fafc; }
+
+    tbody td {
+      padding: 11px 16px;
+      color: var(--aou-text);
+    }
+
+    .status-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 20px;
+    }
+    .badge-green { background: #dcfce7; color: #166534; }
+    .badge-yellow { background: #fef9c3; color: #854d0e; }
+    .badge-red { background: #fee2e2; color: #b91c1c; }
+    .badge-blue { background: #dbeafe; color: #1e40af; }
+
+    /* ---- Tabs ---- */
+    .admin-tabs {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 24px;
+      border-bottom: 2px solid var(--aou-border);
+      padding-bottom: 0;
+    }
+
+    .admin-tab {
+      padding: 10px 20px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #6b7280;
+      background: none;
+      border: none;
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -2px;
+      font-family: 'Open Sans', sans-serif;
+      transition: all 0.2s;
+    }
+
+    .admin-tab.active {
+      color: var(--aou-navy);
+      border-bottom-color: var(--aou-navy);
+    }
+
+    .admin-tab:hover:not(.active) { color: var(--aou-navy); }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ---- Search bar ---- */
+    .table-toolbar {
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--aou-border);
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .table-search {
+      flex: 1;
+      padding: 8px 12px;
+      border: 1.5px solid var(--aou-border);
+      border-radius: 6px;
+      font-size: 13px;
+      font-family: 'Open Sans', sans-serif;
+      color: var(--aou-text);
+      outline: none;
+    }
+
+    .table-search:focus { border-color: var(--aou-navy); }
+
+    .btn-sm {
+      padding: 8px 14px;
+      font-size: 12px;
+      border-radius: 5px;
+      font-family: 'Open Sans', sans-serif;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+    }
+
+    .btn-sm-navy { background: var(--aou-navy); color: white; }
+    .btn-sm-navy:hover { background: var(--aou-navy-dark); }
+    .btn-sm-gold { background: var(--aou-gold); color: var(--aou-navy); }
+    .btn-sm-gold:hover { background: var(--aou-gold-light); }
+    .btn-sm-outline { background: white; color: var(--aou-navy); border: 1.5px solid var(--aou-border); }
+    .btn-sm-outline:hover { border-color: var(--aou-navy); }
+
+    /* ---- Modal ---- */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-overlay.open { display: flex; }
+
+    .modal {
+      background: white;
+      border-radius: 10px;
+      width: 100%;
+      max-width: 500px;
+      margin: 24px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+      overflow: hidden;
+    }
+
+    .modal-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--aou-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-header h3 { font-size: 16px; margin: 0; color: var(--aou-navy); }
+
+    .modal-close {
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      color: #6b7280;
+      line-height: 1;
+    }
+
+    .modal-body { padding: 24px; }
+    .modal-footer {
+      padding: 16px 24px;
+      border-top: 1px solid var(--aou-border);
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    @media (max-width: 768px) {
+      .admin-wrapper { flex-direction: column; }
+      .admin-sidebar { width: 100%; padding: 16px 0; }
+      .admin-sidebar { flex-direction: row; overflow-x: auto; }
+      .admin-main { padding: 20px 16px; }
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <div class="container">
+      <span>⚙️ Administration Portal — AOU Hargeisa Branch</span>
+      <div class="top-links">
+        <span id="adminGreeting">Admin</span>
+        <span>|</span>
+        <a href="index.html">Main Site</a>
+        <span>|</span>
+        <a href="#" id="adminLogoutBtn">Logout</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-inner">
+      <a href="index.html" class="site-logo">
+        <img src="Screenshot%202026-06-17%20052854.png" alt="American Open University Logo">
+        <span class="branch-label">Hargeisa Branch</span>
+      </a>
+      <nav>
+        <a href="admin.html" class="active">Admin Dashboard</a>
+        <a href="index.html">Main Site</a>
+        <a href="login.html">Student Login</a>
+        <a href="#" id="adminLogoutNav" class="btn-login">Logout</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ADMIN WRAPPER -->
+  <div class="admin-wrapper">
+
+    <!-- SIDEBAR -->
+    <aside class="admin-sidebar">
+      <div class="sidebar-title">⚙ Admin Panel</div>
+      <nav class="sidebar-nav">
+        <div class="nav-section">Overview</div>
+        <a href="#" class="active" onclick="showTab('overview', this)">📊 Dashboard</a>
+        <div class="nav-section">Students</div>
+        <a href="#" onclick="showTab('students', this)">👥 All Students</a>
+        <a href="#" onclick="showTab('enrollment', this)">📋 Enrollment</a>
+        <div class="nav-section">Finance</div>
+        <a href="#" onclick="showTab('payments', this)">💳 Payments</a>
+        <a href="#" onclick="showTab('balance', this)">📂 Balance Due</a>
+        <div class="nav-section">Settings</div>
+        <a href="#" onclick="showTab('semesters', this)">📅 Semesters</a>
+        <a href="index.html" style="margin-top:auto;">🌐 View Site</a>
+      </nav>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="admin-main">
+
+      <!-- ===================== OVERVIEW TAB ===================== -->
+      <div id="tab-overview" class="tab-panel active">
+        <h2 class="admin-page-title">Dashboard Overview</h2>
+        <p class="admin-page-subtitle">Welcome back, Admin. Here's the current status of AOU Hargeisa Branch.</p>
+
+        <div class="stats-row">
+          <div class="stat-card">
+            <div class="stat-label">Total Students</div>
+            <div class="stat-value">47</div>
+            <div class="stat-sub">Active enrollments</div>
+          </div>
+          <div class="stat-card gold">
+            <div class="stat-label">This Semester</div>
+            <div class="stat-value">38</div>
+            <div class="stat-sub">Fall 2026 enrolled</div>
+          </div>
+          <div class="stat-card green">
+            <div class="stat-label">Payments Received</div>
+            <div class="stat-value">$18,450</div>
+            <div class="stat-sub">Fall 2026</div>
+          </div>
+          <div class="stat-card red">
+            <div class="stat-label">Balance Due</div>
+            <div class="stat-value">$4,050</div>
+            <div class="stat-sub">9 students outstanding</div>
+          </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h3>Recent Activity</h3>
+            <span class="status-badge badge-blue">Live</span>
+          </div>
+          <div class="admin-card-body">
+            <table>
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Student</th>
+                  <th>Action</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>June 17, 2026</td><td>Ahmed Hassan</td><td>Tuition paid – PayPal</td><td><span class="status-badge badge-green">Confirmed</span></td></tr>
+                <tr><td>June 16, 2026</td><td>Fadumo Ali</td><td>Dahabshiil confirmation submitted</td><td><span class="status-badge badge-yellow">Pending Verification</span></td></tr>
+                <tr><td>June 15, 2026</td><td>Mohamed Yusuf</td><td>New enrollment – Fall 2026</td><td><span class="status-badge badge-blue">Enrolled</span></td></tr>
+                <tr><td>June 14, 2026</td><td>Amina Warsame</td><td>Tuition paid – Dahabshiil</td><td><span class="status-badge badge-green">Confirmed</span></td></tr>
+                <tr><td>June 13, 2026</td><td>Abdi Noor</td><td>Payment overdue reminder sent</td><td><span class="status-badge badge-red">Overdue</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Semester Status -->
+        <div class="admin-card">
+          <div class="admin-card-header"><h3>Semester Calendar</h3></div>
+          <div class="admin-card-body">
+            <table>
+              <thead>
+                <tr><th>Semester</th><th>Dates</th><th>Enrollment Deadline</th><th>Status</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>Fall 2026</strong></td><td>Oct 5 – Dec 25</td><td>Sept 30</td><td><span class="status-badge badge-yellow">Upcoming</span></td></tr>
+                <tr><td>Spring 2027</td><td>Jan 5 – Mar 25</td><td>Dec 30</td><td><span class="status-badge badge-blue">Planning</span></td></tr>
+                <tr><td>Summer I 2027</td><td>Apr 5 – Jun 25</td><td>Mar 30</td><td><span class="status-badge badge-blue">Planning</span></td></tr>
+                <tr><td>Summer II 2027</td><td>Jul 5 – Sep 25</td><td>Jun 30</td><td><span class="status-badge badge-blue">Planning</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===================== STUDENTS TAB ===================== -->
+      <div id="tab-students" class="tab-panel">
+        <h2 class="admin-page-title">All Students</h2>
+        <p class="admin-page-subtitle">Manage student records, view profiles and academic status.</p>
+
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h3>Student Registry</h3>
+            <button class="btn-sm btn-sm-gold" onclick="openModal('addStudentModal')">+ Add Student</button>
+          </div>
+          <div class="table-toolbar">
+            <input type="text" class="table-search" id="studentSearch" placeholder="🔍  Search by name, ID or program..." oninput="filterTable('studentTable', this.value)">
+          </div>
+          <div class="admin-card-body">
+            <table id="studentTable">
+              <thead>
+                <tr>
+                  <th>Student ID</th>
+                  <th>Full Name</th>
+                  <th>Program</th>
+                  <th>Semester</th>
+                  <th>GPA</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>AOU-001</td><td>Ahmed Hassan Mohamud</td><td>B. Islamic Studies</td><td>Fall 2026</td><td>3.8</td><td><span class="status-badge badge-green">Active</span></td><td><button class="btn-sm btn-sm-outline" onclick="viewStudent('Ahmed Hassan Mohamud')">View</button></td></tr>
+                <tr><td>AOU-002</td><td>Fadumo Ali Jama</td><td>B. Islamic Studies</td><td>Fall 2026</td><td>3.5</td><td><span class="status-badge badge-green">Active</span></td><td><button class="btn-sm btn-sm-outline" onclick="viewStudent('Fadumo Ali Jama')">View</button></td></tr>
+                <tr><td>AOU-003</td><td>Mohamed Yusuf Aden</td><td>Arabic Language</td><td>Fall 2026</td><td>3.9</td><td><span class="status-badge badge-green">Active</span></td><td><button class="btn-sm btn-sm-outline" onclick="viewStudent('Mohamed Yusuf Aden')">View</button></td></tr>
+                <tr><td>AOU-004</td><td>Amina Warsame Hashi</td><td>B. Islamic Psychology</td><td>Fall 2026</td><td>3.7</td><td><span class="status-badge badge-green">Active</span></td><td><button class="btn-sm btn-sm-outline" onclick="viewStudent('Amina Warsame Hashi')">View</button></td></tr>
+                <tr><td>AOU-005</td><td>Abdi Noor Ibrahim</td><td>B. Islamic Studies</td><td>Fall 2026</td><td>2.9</td><td><span class="status-badge badge-yellow">On Probation</span></td><td><button class="btn-sm btn-sm-outline" onclick="viewStudent('Abdi Noor Ibrahim')">View</button></td></tr>
+                <tr><td>AOU-006</td><td>Hodan Omar Elmi</td><td>Qur'an Hifz Program</td><td>Fall 2026</td><td>4.0</td><td><span class="status-badge badge-green">Active</span></td><td><button class="btn-sm btn-sm-outline" onclick="viewStudent('Hodan Omar Elmi')">View</button></td></tr>
+                <tr><td>AOU-007</td><td>Sahra Mohamed Duale</td><td>Arabic Language</td><td>Fall 2026</td><td>3.6</td><td><span class="status-badge badge-green">Active</span></td><td><button class="btn-sm btn-sm-outline" onclick="viewStudent('Sahra Mohamed Duale')">View</button></td></tr>
+                <tr><td>AOU-008</td><td>Yusuf Abdullahi Farah</td><td>B. Islamic Studies</td><td>Fall 2026</td><td>3.2</td><td><span class="status-badge badge-red">Suspended</span></td><td><button class="btn-sm btn-sm-outline" onclick="viewStudent('Yusuf Abdullahi Farah')">View</button></td></tr>
+                <tr><td>AOU-009</td><td>Faysal Hassan Guure</td><td>B. Islamic Psychology</td><td>Fall 2026</td><td>3.4</td><td><span class="status-badge badge-green">Active</span></td><td><button class="btn-sm btn-sm-outline" onclick="viewStudent('Faysal Hassan Guure')">View</button></td></tr>
+                <tr><td>AOU-010</td><td>Nasra Ahmed Ismail</td><td>B. Islamic Studies</td><td>Fall 2026</td><td>3.7</td><td><span class="status-badge badge-green">Active</span></td><td><button class="btn-sm btn-sm-outline" onclick="viewStudent('Nasra Ahmed Ismail')">View</button></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===================== ENROLLMENT TAB ===================== -->
+      <div id="tab-enrollment" class="tab-panel">
+        <h2 class="admin-page-title">Enrollment Management</h2>
+        <p class="admin-page-subtitle">Review and approve student enrollment applications for upcoming semesters.</p>
+
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h3>Pending Enrollment Applications — Fall 2026</h3>
+            <span class="status-badge badge-yellow">3 Pending</span>
+          </div>
+          <div class="admin-card-body">
+            <table>
+              <thead>
+                <tr><th>Applicant</th><th>Program</th><th>Applied</th><th>Documents</th><th>Action</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Khadra Ibrahim Ali</td><td>B. Islamic Studies</td><td>June 15, 2026</td>
+                  <td><span class="status-badge badge-green">Complete</span></td>
+                  <td>
+                    <button class="btn-sm btn-sm-gold" style="margin-right:4px;" onclick="approveEnrollment(this, 'Khadra Ibrahim Ali')">Approve</button>
+                    <button class="btn-sm btn-sm-outline" onclick="rejectEnrollment(this, 'Khadra Ibrahim Ali')">Reject</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Omar Abdi Warsame</td><td>Arabic Language</td><td>June 16, 2026</td>
+                  <td><span class="status-badge badge-yellow">Incomplete</span></td>
+                  <td>
+                    <button class="btn-sm btn-sm-gold" style="margin-right:4px;" onclick="approveEnrollment(this, 'Omar Abdi Warsame')">Approve</button>
+                    <button class="btn-sm btn-sm-outline" onclick="rejectEnrollment(this, 'Omar Abdi Warsame')">Reject</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Ifrah Yusuf Mohamud</td><td>B. Islamic Psychology</td><td>June 17, 2026</td>
+                  <td><span class="status-badge badge-green">Complete</span></td>
+                  <td>
+                    <button class="btn-sm btn-sm-gold" style="margin-right:4px;" onclick="approveEnrollment(this, 'Ifrah Yusuf Mohamud')">Approve</button>
+                    <button class="btn-sm btn-sm-outline" onclick="rejectEnrollment(this, 'Ifrah Yusuf Mohamud')">Reject</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===================== PAYMENTS TAB ===================== -->
+      <div id="tab-payments" class="tab-panel">
+        <h2 class="admin-page-title">Payment Records</h2>
+        <p class="admin-page-subtitle">All tuition payments received via PayPal and Dahabshiil.</p>
+
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h3>Payment History — Fall 2026</h3>
+            <button class="btn-sm btn-sm-navy" onclick="exportPayments()">⬇ Export CSV</button>
+          </div>
+          <div class="table-toolbar">
+            <input type="text" class="table-search" placeholder="🔍  Search payments..." oninput="filterTable('paymentsTable', this.value)">
+          </div>
+          <div class="admin-card-body">
+            <table id="paymentsTable">
+              <thead>
+                <tr><th>Date</th><th>Student</th><th>Amount</th><th>Method</th><th>Reference</th><th>Status</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Jun 17, 2026</td><td>Ahmed Hassan Mohamud</td><td>$450</td><td>PayPal</td><td>PP-8823991</td><td><span class="status-badge badge-green">Confirmed</span></td></tr>
+                <tr><td>Jun 16, 2026</td><td>Fadumo Ali Jama</td><td>$450</td><td>Dahabshiil</td><td>TR-6612334</td><td><span class="status-badge badge-yellow">Pending</span></td></tr>
+                <tr><td>Jun 15, 2026</td><td>Amina Warsame Hashi</td><td>$450</td><td>Dahabshiil</td><td>TR-5509871</td><td><span class="status-badge badge-green">Confirmed</span></td></tr>
+                <tr><td>Jun 14, 2026</td><td>Hodan Omar Elmi</td><td>$450</td><td>PayPal</td><td>PP-7714562</td><td><span class="status-badge badge-green">Confirmed</span></td></tr>
+                <tr><td>Jun 13, 2026</td><td>Mohamed Yusuf Aden</td><td>$450</td><td>PayPal</td><td>PP-6634128</td><td><span class="status-badge badge-green">Confirmed</span></td></tr>
+                <tr><td>Jun 12, 2026</td><td>Sahra Mohamed Duale</td><td>$450</td><td>Dahabshiil</td><td>TR-4421009</td><td><span class="status-badge badge-green">Confirmed</span></td></tr>
+                <tr><td>Jun 11, 2026</td><td>Faysal Hassan Guure</td><td>$450</td><td>PayPal</td><td>PP-5523741</td><td><span class="status-badge badge-green">Confirmed</span></td></tr>
+                <tr><td>Jun 10, 2026</td><td>Nasra Ahmed Ismail</td><td>$450</td><td>Dahabshiil</td><td>TR-3318876</td><td><span class="status-badge badge-yellow">Pending</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===================== BALANCE TAB ===================== -->
+      <div id="tab-balance" class="tab-panel">
+        <h2 class="admin-page-title">Outstanding Balances</h2>
+        <p class="admin-page-subtitle">Students with unpaid tuition for Fall 2026.</p>
+
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h3>Balance Due — Fall 2026</h3>
+            <span class="status-badge badge-red">$4,050 Total Outstanding</span>
+          </div>
+          <div class="admin-card-body">
+            <table>
+              <thead>
+                <tr><th>Student ID</th><th>Name</th><th>Amount Due</th><th>Due Date</th><th>Days Overdue</th><th>Action</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>AOU-005</td><td>Abdi Noor Ibrahim</td><td>$450</td><td>Sept 30</td><td>—</td><td><button class="btn-sm btn-sm-gold" onclick="sendReminder('Abdi Noor Ibrahim')">Send Reminder</button></td></tr>
+                <tr><td>AOU-008</td><td>Yusuf Abdullahi Farah</td><td>$450</td><td>Sept 30</td><td>—</td><td><button class="btn-sm btn-sm-gold" onclick="sendReminder('Yusuf Abdullahi Farah')">Send Reminder</button></td></tr>
+                <tr><td>AOU-011</td><td>Ladan Abdi Hassan</td><td>$450</td><td>Sept 30</td><td>—</td><td><button class="btn-sm btn-sm-gold" onclick="sendReminder('Ladan Abdi Hassan')">Send Reminder</button></td></tr>
+                <tr><td>AOU-014</td><td>Barkhad Omar Farah</td><td>$450</td><td>Sept 30</td><td>—</td><td><button class="btn-sm btn-sm-gold" onclick="sendReminder('Barkhad Omar Farah')">Send Reminder</button></td></tr>
+                <tr><td>AOU-017</td><td>Caasha Warsame Ali</td><td>$450</td><td>Sept 30</td><td>—</td><td><button class="btn-sm btn-sm-gold" onclick="sendReminder('Caasha Warsame Ali')">Send Reminder</button></td></tr>
+                <tr><td>AOU-021</td><td>Guled Hassan Musse</td><td>$450</td><td>Sept 30</td><td>—</td><td><button class="btn-sm btn-sm-gold" onclick="sendReminder('Guled Hassan Musse')">Send Reminder</button></td></tr>
+                <tr><td>AOU-025</td><td>Hibo Abdullahi Nur</td><td>$450</td><td>Sept 30</td><td>—</td><td><button class="btn-sm btn-sm-gold" onclick="sendReminder('Hibo Abdullahi Nur')">Send Reminder</button></td></tr>
+                <tr><td>AOU-030</td><td>Idil Mohamed Salah</td><td>$450</td><td>Sept 30</td><td>—</td><td><button class="btn-sm btn-sm-gold" onclick="sendReminder('Idil Mohamed Salah')">Send Reminder</button></td></tr>
+                <tr><td>AOU-034</td><td>Jama Abdi Warsame</td><td>$450</td><td>Sept 30</td><td>—</td><td><button class="btn-sm btn-sm-gold" onclick="sendReminder('Jama Abdi Warsame')">Send Reminder</button></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===================== SEMESTERS TAB ===================== -->
+      <div id="tab-semesters" class="tab-panel">
+        <h2 class="admin-page-title">Semester Management</h2>
+        <p class="admin-page-subtitle">View and update academic semester dates and enrollment deadlines.</p>
+
+        <div class="admin-card">
+          <div class="admin-card-header"><h3>Academic Calendar 2026–2027</h3></div>
+          <div class="admin-card-body">
+            <table>
+              <thead>
+                <tr><th>Semester</th><th>Start Date</th><th>End Date</th><th>Enrollment Deadline</th><th>Status</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>Fall 2026</strong></td><td>Oct 5, 2026</td><td>Dec 25, 2026</td><td>Sept 30, 2026</td><td><span class="status-badge badge-yellow">Upcoming</span></td></tr>
+                <tr><td>Spring 2027</td><td>Jan 5, 2027</td><td>Mar 25, 2027</td><td>Dec 30, 2026</td><td><span class="status-badge badge-blue">Scheduled</span></td></tr>
+                <tr><td>Summer I 2027</td><td>Apr 5, 2027</td><td>Jun 25, 2027</td><td>Mar 30, 2027</td><td><span class="status-badge badge-blue">Scheduled</span></td></tr>
+                <tr><td>Summer II 2027</td><td>Jul 5, 2027</td><td>Sep 25, 2027</td><td>Jun 30, 2027</td><td><span class="status-badge badge-blue">Scheduled</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- ============= ADD STUDENT MODAL ============= -->
+  <div class="modal-overlay" id="addStudentModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Add New Student</h3>
+        <button class="modal-close" onclick="closeModal('addStudentModal')">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" class="form-control" id="newStudentName" placeholder="e.g. Ahmed Hassan Mohamud">
+        </div>
+        <div class="form-group">
+          <label>Program</label>
+          <select class="form-control" id="newStudentProgram">
+            <option>B. Islamic Studies</option>
+            <option>B. Islamic Psychology</option>
+            <option>Arabic Language Program</option>
+            <option>Qur'an Hifz Program</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Semester</label>
+          <select class="form-control">
+            <option>Fall 2026</option>
+            <option>Spring 2027</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" class="form-control" placeholder="student@example.com">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-sm btn-sm-outline" onclick="closeModal('addStudentModal')">Cancel</button>
+        <button class="btn-sm btn-sm-navy" onclick="addStudent()">Add Student</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============= VIEW STUDENT MODAL ============= -->
+  <div class="modal-overlay" id="viewStudentModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 id="viewStudentTitle">Student Profile</h3>
+        <button class="modal-close" onclick="closeModal('viewStudentModal')">✕</button>
+      </div>
+      <div class="modal-body" id="viewStudentBody"></div>
+      <div class="modal-footer">
+        <button class="btn-sm btn-sm-outline" onclick="closeModal('viewStudentModal')">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    // Auth guard
+    if (localStorage.getItem('aou_admin_logged_in') !== 'true') {
+      window.location.href = 'admin-login.html';
+    }
+
+    // Logout
+    ['adminLogoutBtn','adminLogoutNav'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.addEventListener('click', e => {
+        e.preventDefault();
+        localStorage.removeItem('aou_admin_logged_in');
+        window.location.href = 'admin-login.html';
+      });
+    });
+
+    // Tab switching
+    function showTab(tabId, link) {
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.sidebar-nav a').forEach(a => a.classList.remove('active'));
+      document.getElementById('tab-' + tabId).classList.add('active');
+      if (link) link.classList.add('active');
+    }
+
+    // Table search filter
+    function filterTable(tableId, query) {
+      const rows = document.querySelectorAll('#' + tableId + ' tbody tr');
+      rows.forEach(row => {
+        row.style.display = row.textContent.toLowerCase().includes(query.toLowerCase()) ? '' : 'none';
+      });
+    }
+
+    // Modal helpers
+    function openModal(id) { document.getElementById(id).classList.add('open'); }
+    function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+    // Close modal on overlay click
+    document.querySelectorAll('.modal-overlay').forEach(overlay => {
+      overlay.addEventListener('click', function(e) {
+        if (e.target === this) this.classList.remove('open');
+      });
+    });
+
+    // View student
+    function viewStudent(name) {
+      document.getElementById('viewStudentTitle').textContent = name;
+      document.getElementById('viewStudentBody').innerHTML = `
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:13px;">
+          <div><span style="color:#6b7280;">Student ID</span><br><strong>AOU-00X</strong></div>
+          <div><span style="color:#6b7280;">Program</span><br><strong>B. Islamic Studies</strong></div>
+          <div><span style="color:#6b7280;">Semester</span><br><strong>Fall 2026</strong></div>
+          <div><span style="color:#6b7280;">GPA</span><br><strong>3.7 / 4.0</strong></div>
+          <div><span style="color:#6b7280;">Credits Earned</span><br><strong>45 / 120</strong></div>
+          <div><span style="color:#6b7280;">Standing</span><br><span class="status-badge badge-green">Good Standing</span></div>
+          <div style="grid-column:1/-1;"><span style="color:#6b7280;">Email</span><br><strong>aou.somaliland@gmail.com</strong></div>
+          <div style="grid-column:1/-1;"><span style="color:#6b7280;">Tuition Status</span><br><span class="status-badge badge-green">Paid — $450</span></div>
+        </div>`;
+      openModal('viewStudentModal');
+    }
+
+    // Add student
+    function addStudent() {
+      const name = document.getElementById('newStudentName').value.trim();
+      if (!name) { alert('Please enter the student name.'); return; }
+      alert('Student "' + name + '" has been added successfully!');
+      closeModal('addStudentModal');
+    }
+
+    // Enrollment actions
+    function approveEnrollment(btn, name) {
+      const row = btn.closest('tr');
+      row.cells[4].innerHTML = '<span class="status-badge badge-green">Approved</span>';
+      alert('✅ Enrollment for ' + name + ' has been approved!');
+    }
+
+    function rejectEnrollment(btn, name) {
+      const row = btn.closest('tr');
+      row.cells[4].innerHTML = '<span class="status-badge badge-red">Rejected</span>';
+      alert('❌ Enrollment for ' + name + ' has been rejected.');
+    }
+
+    // Send reminder
+    function sendReminder(name) {
+      alert('📧 Payment reminder sent to ' + name + ' at aou.somaliland@gmail.com');
+    }
+
+    // Export CSV (mock)
+    function exportPayments() {
+      alert('📥 Exporting payment records as CSV...\n\n(In production this would generate a real CSV download.)');
+    }
+  </script>
+</body>
+</html>

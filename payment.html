@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Tuition Payment – AOU Hargeisa Branch">
+  <title>Tuition Payment | AOU Hargeisa Branch</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- PayPal Sandbox SDK (replace sb with your live Client ID for production) -->
+  <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD" defer></script>
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <div class="container">
+      <span>American Open University – Hargeisa Branch &nbsp;|&nbsp; Tuition Payment</span>
+      <div class="top-links">
+        <a href="dashboard.html">← Dashboard</a>
+        <span>|</span>
+        <a href="index.html">Main Website</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-inner">
+      <a href="index.html" class="site-logo">
+        <img src="Screenshot%202026-06-17%20052854.png"
+             alt="American Open University Logo">
+        <span class="branch-label">Hargeisa Branch</span>
+      </a>
+      <nav>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="payment.html" class="active">Pay Tuition</a>
+        <a href="index.html#contact">Contact</a>
+        <a href="#" id="logoutBtnNav" class="btn-login">Logout</a>
+      </nav>
+      <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="mobile-nav" id="mobileNav">
+      <a href="dashboard.html">Dashboard</a>
+      <a href="payment.html">Pay Tuition</a>
+      <a href="index.html">Main Site</a>
+      <a href="#" id="logoutMobile">Logout</a>
+    </div>
+  </header>
+
+  <!-- PAYMENT BODY -->
+  <div class="payment-page-bg">
+    <div class="payment-card">
+
+      <h2>Tuition Payment</h2>
+      <p style="text-align:center;color:#6b7280;font-size:14px;margin-bottom:0;">AOU Hargeisa Branch – Student Portal</p>
+
+      <div class="payment-amount-block">
+        <p>Amount Due</p>
+        <div class="amount">$450.00</div>
+        <div class="semester-label">Fall Semester 2026 &nbsp;·&nbsp; Deadline: Sept. 30, 2026</div>
+      </div>
+
+      <h3 style="font-size:17px;margin-bottom:6px;color:var(--aou-navy);">Select Payment Method</h3>
+      <p style="font-size:13px;color:#6b7280;margin-bottom:0;">Choose how you'd like to pay your tuition.</p>
+
+      <div class="payment-method-tabs">
+        <button class="payment-tab active" id="tabPaypal" onclick="switchTab('paypal')">
+          💳 PayPal / Credit Card
+        </button>
+        <button class="payment-tab" id="tabDahabshiil" onclick="switchTab('dahabshiil')">
+          🏦 Dahabshiil Transfer
+        </button>
+      </div>
+
+      <!-- PAYPAL PANEL -->
+      <div class="payment-panel active" id="panelPaypal">
+        <p style="font-size:13px;color:#6b7280;margin-bottom:16px;text-align:center;">
+          Pay securely using your PayPal account or any major credit/debit card.
+        </p>
+        <div id="paypal-button-container"></div>
+        <p style="font-size:11px;color:#9ca3af;text-align:center;margin-top:12px;">
+          🔒 Your payment is processed securely by PayPal. AOU never stores your card information.
+        </p>
+      </div>
+
+      <!-- DAHABSHIIL PANEL -->
+      <div class="payment-panel" id="panelDahabshiil">
+        <div style="background:#f0f9ff;border:1px solid #bae6fd;border-radius:6px;padding:16px;margin-bottom:20px;font-size:13px;color:#0c4a6e;">
+          <strong>Transfer Instructions:</strong><br>
+          Please send <strong>$450.00 USD</strong> to the AOU Hargeisa Branch Dahabshiil account:<br><br>
+          <strong>Account Name:</strong> American Open University – Hargeisa<br>
+          <strong>Account Number:</strong> HARG-12345<br>
+          <strong>Reference:</strong> Your Student ID<br><br>
+          After transferring, submit the confirmation below.
+        </div>
+
+        <form id="dahabshiilForm" novalidate>
+          <div class="form-group">
+            <label for="transactionId">Dahabshiil Transaction ID / Receipt Number</label>
+            <input type="text" id="transactionId" class="form-control"
+                   placeholder="e.g. TR-987654321" required>
+          </div>
+          <div class="form-group">
+            <label for="senderPhone">Sender Phone Number</label>
+            <input type="tel" id="senderPhone" class="form-control"
+                   placeholder="+252 6XX XXX XXX" required>
+          </div>
+          <div class="form-group">
+            <label for="senderEmail">Your Email Address (for confirmation)</label>
+            <input type="email" id="senderEmail" class="form-control"
+                   placeholder="student@example.com" required>
+          </div>
+          <div class="form-group">
+            <label for="paymentNotes">Additional Notes (optional)</label>
+            <input type="text" id="paymentNotes" class="form-control"
+                   placeholder="e.g. Fall 2026 tuition – Student ID: AOU-1234">
+          </div>
+          <button type="submit" class="btn btn-navy btn-full" style="display:block;text-align:center;padding:13px;">
+            Submit Confirmation
+          </button>
+        </form>
+
+        <div class="success-msg" id="dahabshiilSuccess">
+          ✅ Your Dahabshiil payment confirmation has been submitted! We will verify your transaction within 24 hours and send a confirmation to your email.
+        </div>
+
+        <p style="font-size:11px;color:#9ca3af;text-align:center;margin-top:12px;">
+          For questions, contact us at <a href="mailto:aou.somaliland@gmail.com">aou.somaliland@gmail.com</a>
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-bottom" style="border-top:none;padding-top:0;">
+        <p>&copy; 2026 American Open University – Hargeisa Branch. All rights reserved.</p>
+        <p><a href="dashboard.html" style="color:#5a6a80;">← Back to Dashboard</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    // Auth guard
+    if (localStorage.getItem('aou_logged_in') !== 'true') {
+      window.location.href = 'login.html';
+    }
+
+    // Logout
+    ['logoutBtnNav','logoutMobile'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.addEventListener('click', e => {
+        e.preventDefault();
+        localStorage.removeItem('aou_logged_in');
+        localStorage.removeItem('aou_student_name');
+        window.location.href = 'login.html';
+      });
+    });
+
+    // Tab switching
+    function switchTab(tab) {
+      document.getElementById('tabPaypal').classList.toggle('active', tab === 'paypal');
+      document.getElementById('tabDahabshiil').classList.toggle('active', tab === 'dahabshiil');
+      document.getElementById('panelPaypal').classList.toggle('active', tab === 'paypal');
+      document.getElementById('panelDahabshiil').classList.toggle('active', tab === 'dahabshiil');
+    }
+
+    // PayPal Button
+    window.addEventListener('load', () => {
+      if (window.paypal) {
+        paypal.Buttons({
+          style: {
+            layout: 'vertical',
+            color: 'blue',
+            shape: 'rect',
+            label: 'pay'
+          },
+          createOrder: (data, actions) => {
+            return actions.order.create({
+              purchase_units: [{
+                amount: { value: '450.00' },
+                description: 'AOU Hargeisa Branch – Fall Semester 2026 Tuition'
+              }]
+            });
+          },
+          onApprove: (data, actions) => {
+            return actions.order.capture().then(details => {
+              alert('Payment successful! Reference: ' + details.id + '\n\nThank you, ' + details.payer.name.given_name + '. Your receipt will be emailed to you.');
+              window.location.href = 'dashboard.html';
+            });
+          },
+          onError: (err) => {
+            alert('An error occurred during payment. Please try again or contact aou.somaliland@gmail.com');
+          }
+        }).render('#paypal-button-container');
+      }
+    });
+
+    // Dahabshiil form
+    document.getElementById('dahabshiilForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const txId = document.getElementById('transactionId').value.trim();
+      const email = document.getElementById('senderEmail').value.trim();
+      if (!txId || !email) {
+        alert('Please fill in the Transaction ID and Email Address.');
+        return;
+      }
+      this.style.display = 'none';
+      document.getElementById('dahabshiilSuccess').style.display = 'block';
+      setTimeout(() => { window.location.href = 'dashboard.html'; }, 4000);
+    });
+  </script>
+</body>
+</html>

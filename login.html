@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Student Login Portal – AOU Hargeisa Branch">
+  <title>Student Login | AOU Hargeisa Branch</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <div class="container">
+      <span>📍 Togdher Street, Sagal Jet Building, Hargeisa, Somaliland</span>
+      <div class="top-links">
+        <a href="tel:+252634830700">+252 634 830 700</a>
+        <span>|</span>
+        <a href="index.html">← Back to Main Site</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-inner">
+      <a href="index.html" class="site-logo">
+        <img src="Screenshot%202026-06-17%20052854.png"
+             alt="American Open University Logo">
+        <span class="branch-label">Hargeisa Branch</span>
+      </a>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="index.html#programs">Academics</a>
+        <a href="index.html#contact">Contact</a>
+        <a href="login.html" class="btn-login active">LOG IN</a>
+      </nav>
+      <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="mobile-nav" id="mobileNav">
+      <a href="index.html">Home</a>
+      <a href="index.html#programs">Academics</a>
+      <a href="index.html#contact">Contact</a>
+    </div>
+  </header>
+
+  <!-- LOGIN BODY -->
+  <div class="login-page-bg">
+    <div class="login-card">
+      <p style="text-align:center;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--aou-gold);margin-bottom:6px;">American Open University</p>
+      <h2>Student Portal Login</h2>
+      <p style="text-align:center;font-size:13px;color:#6b7280;margin-bottom:28px;">Hargeisa Branch — aouhargeisa.edu</p>
+
+      <form id="loginForm" novalidate>
+        <div class="form-group">
+          <label for="studentId">Student ID or Email Address</label>
+          <input type="text" id="studentId" name="studentId" class="form-control"
+                 placeholder="e.g. student@aouhargeisa.edu" required autocomplete="username">
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" class="form-control"
+                 placeholder="Enter your password" required autocomplete="current-password">
+        </div>
+
+        <div class="form-row">
+          <label>
+            <input type="checkbox" id="rememberMe"> Remember me
+          </label>
+          <a href="#">Forgot Password?</a>
+        </div>
+
+        <button type="submit" class="btn btn-navy btn-full" id="loginBtn">Log In to Portal</button>
+
+        <div class="error-msg" id="loginError">
+          Invalid Student ID or password. Please try again.
+        </div>
+      </form>
+
+      <p style="text-align:center;margin-top:24px;font-size:13px;color:#6b7280;">
+        Need help? Contact us at
+        <a href="mailto:aou.somaliland@gmail.com">aou.somaliland@gmail.com</a>
+      </p>
+
+      <div style="background:#f0f9ff;border:1px solid #bae6fd;border-radius:6px;padding:14px 16px;margin-top:20px;font-size:12px;color:#0c4a6e;">
+        <strong style="display:block;margin-bottom:8px;font-size:12px;">🔑 Demo Student Accounts</strong>
+        <table style="width:100%;border-collapse:collapse;font-size:11.5px;">
+          <tr style="border-bottom:1px solid #bae6fd;">
+            <th style="text-align:left;padding:4px 6px;color:#075985;">Student ID</th>
+            <th style="text-align:left;padding:4px 6px;color:#075985;">Password</th>
+            <th style="text-align:left;padding:4px 6px;color:#075985;">Name</th>
+          </tr>
+          <tr><td style="padding:4px 6px;"><code style="background:#e0f2fe;padding:1px 5px;border-radius:3px;">AOU-001</code></td><td style="padding:4px 6px;"><code style="background:#e0f2fe;padding:1px 5px;border-radius:3px;">Ahmed@2026</code></td><td style="padding:4px 6px;">Ahmed Hassan</td></tr>
+          <tr><td style="padding:4px 6px;"><code style="background:#e0f2fe;padding:1px 5px;border-radius:3px;">AOU-002</code></td><td style="padding:4px 6px;"><code style="background:#e0f2fe;padding:1px 5px;border-radius:3px;">Fadumo@2026</code></td><td style="padding:4px 6px;">Fadumo Ali</td></tr>
+          <tr><td style="padding:4px 6px;"><code style="background:#e0f2fe;padding:1px 5px;border-radius:3px;">AOU-003</code></td><td style="padding:4px 6px;"><code style="background:#e0f2fe;padding:1px 5px;border-radius:3px;">Mohamed@2026</code></td><td style="padding:4px 6px;">Mohamed Yusuf</td></tr>
+          <tr><td style="padding:4px 6px;"><code style="background:#e0f2fe;padding:1px 5px;border-radius:3px;">AOU-004</code></td><td style="padding:4px 6px;"><code style="background:#e0f2fe;padding:1px 5px;border-radius:3px;">Amina@2026</code></td><td style="padding:4px 6px;">Amina Warsame</td></tr>
+          <tr><td style="padding:4px 6px;"><code style="background:#e0f2fe;padding:1px 5px;border-radius:3px;">AOU-006</code></td><td style="padding:4px 6px;"><code style="background:#e0f2fe;padding:1px 5px;border-radius:3px;">Hodan@2026</code></td><td style="padding:4px 6px;">Hodan Omar</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-bottom" style="border-top:none;padding-top:0;">
+        <p>&copy; 2026 American Open University – Hargeisa Branch. All rights reserved.</p>
+        <p><a href="index.html" style="color:#5a6a80;">Return to Main Site</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

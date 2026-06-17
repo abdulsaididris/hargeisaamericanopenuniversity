@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Student Dashboard – AOU Hargeisa Branch">
+  <title>Student Dashboard | AOU Hargeisa Branch</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <div class="container">
+      <span>American Open University – Hargeisa Branch &nbsp;|&nbsp; Student Portal</span>
+      <div class="top-links">
+        <a href="index.html">Main Website</a>
+        <span>|</span>
+        <a href="#" id="logoutBtn">Logout</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-inner">
+      <a href="index.html" class="site-logo">
+        <img src="Screenshot%202026-06-17%20052854.png"
+             alt="American Open University Logo">
+        <span class="branch-label">Hargeisa Branch</span>
+      </a>
+      <nav>
+        <a href="dashboard.html" class="active">Dashboard</a>
+        <a href="payment.html">Pay Tuition</a>
+        <a href="index.html#programs">Programs</a>
+        <a href="index.html#contact">Contact</a>
+        <a href="#" id="logoutBtnNav" class="btn-login">Logout</a>
+      </nav>
+      <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="mobile-nav" id="mobileNav">
+      <a href="dashboard.html">Dashboard</a>
+      <a href="payment.html">Pay Tuition</a>
+      <a href="index.html">Main Site</a>
+      <a href="#" id="logoutMobile">Logout</a>
+    </div>
+  </header>
+
+  <!-- DASHBOARD HERO -->
+  <div class="dashboard-hero">
+    <div class="container">
+      <h1>Welcome back, <span id="studentName">Student</span></h1>
+      <p id="dashSubtitle">Loading your information...</p>
+    </div>
+  </div>
+
+  <!-- MOTTO STRIP -->
+  <div class="motto-strip">
+    <div class="container">
+      <p>Be on Time &nbsp;·&nbsp; Be Organized &nbsp;·&nbsp; Stay Focused</p>
+    </div>
+  </div>
+
+  <!-- DASHBOARD BODY -->
+  <div class="dashboard-body">
+    <div class="container">
+      <div class="dashboard-grid">
+
+        <!-- Enrolled Courses -->
+        <div class="dash-card">
+          <div class="card-header">
+            <h3>Current Courses</h3>
+            <span class="badge">Fall 2026</span>
+          </div>
+          <div class="course-item"><div class="course-dot"></div><span>Islamic Jurisprudence (Fiqh)</span></div>
+          <div class="course-item"><div class="course-dot"></div><span>Qur'anic Studies &amp; Tafseer</span></div>
+          <div class="course-item"><div class="course-dot"></div><span>Arabic Literature &amp; Grammar</span></div>
+          <div class="course-item"><div class="course-dot"></div><span>Prophetic Biography (Seerah)</span></div>
+          <div class="course-item"><div class="course-dot"></div><span>Islamic Aqeedah (Theology)</span></div>
+        </div>
+
+        <!-- Academic Status -->
+        <div class="dash-card">
+          <div class="card-header">
+            <h3>Academic Status</h3>
+            <span class="badge" style="background:#dcfce7;color:#166534;">Good Standing</span>
+          </div>
+          <div class="stat-row"><span class="label">Cumulative GPA (CGPA)</span><span class="value" id="dashGPA">—</span></div>
+          <div class="stat-row"><span class="label">Credits Earned</span><span class="value" id="dashCredits">—</span></div>
+          <div class="stat-row"><span class="label">Semester Credits</span><span class="value">15</span></div>
+          <div class="stat-row"><span class="label">Expected Graduation</span><span class="value">Spring 2028</span></div>
+          <div class="stat-row"><span class="label">Academic Standing</span><span class="value" id="dashStatus" style="color:#166534;">—</span></div>
+        </div>
+
+        <!-- Financial Status -->
+        <div class="dash-card">
+          <div class="card-header">
+            <h3>Financial Status</h3>
+            <span class="badge" style="background:#fee2e2;color:#b91c1c;">Balance Due</span>
+          </div>
+          <p style="text-align:center;font-size:13px;color:#6b7280;margin-bottom:4px;">Current Balance</p>
+          <div class="balance-amount" id="dashBalance">—</div>
+          <p style="text-align:center;font-size:12px;color:#6b7280;margin-bottom:20px;">Fall Semester 2026 Tuition</p>
+          <a href="payment.html" class="btn btn-navy btn-full" style="display:block;padding:12px;text-align:center;font-size:14px;">
+            Pay Tuition Now →
+          </a>
+          <div class="stat-row" style="margin-top:16px;">
+            <span class="label">Last Payment</span>
+            <span class="value">Sept. 28, 2025</span>
+          </div>
+          <div class="stat-row">
+            <span class="label">Payment Deadline</span>
+            <span class="value" style="color:#dc2626;">Sept. 30, 2026</span>
+          </div>
+        </div>
+
+        <!-- Announcements -->
+        <div class="dash-card">
+          <div class="card-header">
+            <h3>Announcements</h3>
+            <span class="badge" style="background:#eff6ff;color:#1d4ed8;">3 New</span>
+          </div>
+          <div style="padding:10px 0;border-bottom:1px solid var(--aou-border);">
+            <p style="font-size:12px;color:var(--aou-gold);font-weight:700;margin-bottom:4px;">SEPT. 30 — Enrollment Deadline</p>
+            <p style="font-size:13px;">Fall Semester enrollment deadline is approaching. Ensure your tuition is paid to secure your place.</p>
+          </div>
+          <div style="padding:10px 0;border-bottom:1px solid var(--aou-border);">
+            <p style="font-size:12px;color:var(--aou-gold);font-weight:700;margin-bottom:4px;">GENERAL</p>
+            <p style="font-size:13px;">Study sessions are conducted on-campus at both Hargeisa locations. Attendance is mandatory.</p>
+          </div>
+          <div style="padding:10px 0;">
+            <p style="font-size:12px;color:var(--aou-gold);font-weight:700;margin-bottom:4px;">NEW PROGRAM</p>
+            <p style="font-size:13px;">Bachelor in Islamic Psychology is now available. Contact admissions for transfer credit evaluation.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-bottom" style="border-top:none;padding-top:0;">
+        <p>&copy; 2026 American Open University – Hargeisa Branch. All rights reserved.</p>
+        <p><a href="index.html" style="color:#5a6a80;">Return to Main Site</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    // Auth guard
+    if (localStorage.getItem('aou_logged_in') !== 'true') {
+      window.location.href = 'login.html';
+    }
+
+    // Populate student data from localStorage
+    const sid      = localStorage.getItem('aou_student_id')      || '';
+    const sname    = localStorage.getItem('aou_student_name')    || 'Student';
+    const sprogram = localStorage.getItem('aou_student_program') || 'Islamic Studies';
+    const sgpa     = localStorage.getItem('aou_student_gpa')     || '—';
+    const scredits = localStorage.getItem('aou_student_credits') || '—';
+    const sbalance = localStorage.getItem('aou_student_balance') || '—';
+    const sstatus  = localStorage.getItem('aou_student_status')  || 'Good Standing';
+
+    // First name only for greeting
+    const firstName = sname.split(' ')[0];
+    const nameEl = document.getElementById('studentName');
+    if (nameEl) nameEl.textContent = firstName;
+
+    const subtitleEl = document.getElementById('dashSubtitle');
+    if (subtitleEl) subtitleEl.textContent = sprogram + '  ·  Fall Semester 2026  ·  ' + sid + '  ·  AOU Hargeisa Branch';
+
+    const gpaEl = document.getElementById('dashGPA');
+    if (gpaEl) gpaEl.textContent = sgpa + ' / 4.0';
+
+    const creditsEl = document.getElementById('dashCredits');
+    if (creditsEl) creditsEl.textContent = scredits + ' / 120';
+
+    const balanceEl = document.getElementById('dashBalance');
+    if (balanceEl) balanceEl.textContent = sbalance === '$0' ? '$0.00 — Paid' : sbalance;
+
+    const statusEl = document.getElementById('dashStatus');
+    if (statusEl) {
+      statusEl.textContent = sstatus;
+      statusEl.style.color = sstatus === 'Good Standing' ? '#166534'
+                           : sstatus === 'Academic Probation' ? '#854d0e'
+                           : '#b91c1c';
+    }
+
+    // Logout handlers
+    ['logoutBtn','logoutBtnNav','logoutMobile'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.addEventListener('click', e => {
+        e.preventDefault();
+        ['aou_logged_in','aou_student_id','aou_student_name','aou_student_program',
+         'aou_student_gpa','aou_student_credits','aou_student_balance','aou_student_status']
+          .forEach(k => localStorage.removeItem(k));
+        window.location.href = 'login.html';
+      });
+    });
+  </script>
+</body>
+</html>

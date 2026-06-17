@@ -21,9 +21,10 @@ document.addEventListener('DOMContentLoaded', () => {
     'AOU-005': { password: 'Abdi@2026',   name: 'Abdi Noor Ibrahim',      program: 'B. Islamic Studies',     gpa: '2.9', credits: '30', balance: '$450',  status: 'Academic Probation' },
     'AOU-006': { password: 'Hodan@2026',  name: 'Hodan Omar Elmi',        program: "Qur'an Hifz Program",   gpa: '4.0', credits: '15', balance: '$0',    status: 'Good Standing' },
     'AOU-007': { password: 'Sahra@2026',  name: 'Sahra Mohamed Duale',    program: 'Arabic Language',        gpa: '3.6', credits: '45', balance: '$0',    status: 'Good Standing' },
-    'AOU-008': { password: 'Yusuf@2026',  name: 'Yusuf Abdullahi Farah',  program: 'B. Islamic Studies',     gpa: '3.2', credits: '30', balance: '$450',  status: 'Suspended' },
-    'AOU-009': { password: 'Faysal@2026', name: 'Faysal Hassan Guure',    program: 'B. Islamic Psychology',  gpa: '3.4', credits: '60', balance: '$0',    status: 'Good Standing' },
-    'AOU-010': { password: 'Nasra@2026',  name: 'Nasra Ahmed Ismail',     program: 'B. Islamic Studies',     gpa: '3.7', credits: '75', balance: '$450',  status: 'Good Standing' },
+    'AOU-008': { password: 'Yusuf@2026',  name: 'Yusuf Abdullahi Farah',  program: 'B. Islamic Studies',     gpa: '3.2', credits: '30', balance: '$450',  status: 'Suspended', role: 'Student' },
+    'AOU-009': { password: 'Faysal@2026', name: 'Faysal Hassan Guure',    program: 'B. Islamic Psychology',  gpa: '3.4', credits: '60', balance: '$0',    status: 'Good Standing', role: 'Student' },
+    'AOU-010': { password: 'Nasra@2026',  name: 'Nasra Ahmed Ismail',     program: 'B. Islamic Studies',     gpa: '3.7', credits: '75', balance: '$450',  status: 'Good Standing', role: 'Student' },
+    'APP-001': { password: 'Applicant@2026', name: 'Jama Ali Jama',       program: 'Undergraduate Direct Entry', gpa: 'N/A', credits: '0', balance: '$0', status: 'Pending Documents', role: 'Applicant' },
   };
 
   /* ---- Login form ---- */
@@ -45,7 +46,13 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('aou_student_credits',  student.credits);
         localStorage.setItem('aou_student_balance',  student.balance);
         localStorage.setItem('aou_student_status',   student.status);
-        window.location.href = 'dashboard.html';
+        localStorage.setItem('aou_student_role',     student.role || 'Student');
+        
+        if (student.role === 'Applicant') {
+          window.location.href = 'pre-student-dashboard.html';
+        } else {
+          window.location.href = 'dashboard.html';
+        }
       } else {
         if (errorEl) errorEl.style.display = 'block';
       }

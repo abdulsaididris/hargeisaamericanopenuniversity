@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Applicant Portal – AOU Hargeisa Branch">
+  <title>Applicant Portal | AOU Hargeisa Branch</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .applicant-hero {
+      background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+      color: white;
+      padding: 48px 0;
+    }
+    
+    .applicant-hero h1 { color: white; font-size: 28px; margin-bottom: 8px; }
+    .applicant-hero p { opacity: 0.9; font-size: 15px; }
+    
+    .status-banner {
+      background: #fef3c7;
+      border-left: 5px solid #f59e0b;
+      padding: 20px 24px;
+      margin-bottom: 32px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    
+    .status-banner .status-icon {
+      font-size: 24px;
+    }
+    
+    .status-banner h3 {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 16px;
+      color: #92400e;
+      margin-bottom: 4px;
+    }
+    
+    .status-banner p {
+      font-size: 14px;
+      color: #b45309;
+      margin: 0;
+    }
+    
+    .enrollment-form-section {
+      background: var(--aou-white);
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+      padding: 32px;
+      margin-bottom: 40px;
+    }
+    
+    .form-section-title {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--aou-navy);
+      border-bottom: 2px solid var(--aou-light);
+      padding-bottom: 12px;
+      margin-bottom: 24px;
+      margin-top: 32px;
+    }
+    
+    .form-section-title:first-child {
+      margin-top: 0;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    
+    @media (max-width: 768px) {
+      .form-grid { grid-template-columns: 1fr; }
+    }
+
+    .file-upload-wrapper {
+      border: 2px dashed var(--aou-border);
+      border-radius: 6px;
+      padding: 20px;
+      text-align: center;
+      background: #fafafa;
+      transition: border-color 0.2s;
+    }
+
+    .file-upload-wrapper:hover {
+      border-color: var(--aou-gold);
+    }
+    
+    .file-upload-wrapper label {
+      display: block;
+      font-weight: 600;
+      color: var(--aou-navy);
+      cursor: pointer;
+      margin-bottom: 8px;
+    }
+
+    .file-upload-wrapper p {
+      font-size: 12px;
+      color: var(--aou-gray);
+      margin-bottom: 12px;
+    }
+
+    .file-upload-wrapper input[type="file"] {
+      font-size: 13px;
+      color: var(--aou-gray);
+    }
+
+    .help-text {
+      font-size: 12px;
+      color: var(--aou-gray);
+      margin-top: 4px;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <div class="container">
+      <span>📍 Togdher Street, Sagal Jet Building, Hargeisa, Somaliland</span>
+      <div class="top-links">
+        <a href="#" id="logoutBtnTop">Log Out</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-inner">
+      <a href="index.html" class="site-logo">
+        <img src="Screenshot 2026-06-17 052854.png" alt="American Open University Logo">
+        <span class="branch-label">Applicant Portal</span>
+      </a>
+      <nav>
+        <a href="#" class="active">My Application</a>
+        <a href="#" id="logoutBtnNav" class="btn-login">LOG OUT</a>
+      </nav>
+      <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- DASHBOARD HERO -->
+  <div class="applicant-hero">
+    <div class="container">
+      <h1>Welcome, <span id="applicantName">Applicant</span></h1>
+      <p>ID: <span id="applicantId">APP-001</span> | Program: <span id="applicantProgram">Undergraduate Direct Entry</span></p>
+    </div>
+  </div>
+
+  <!-- DASHBOARD BODY -->
+  <div class="dashboard-body">
+    <div class="container">
+      
+      <div class="status-banner" id="statusBanner">
+        <div class="status-icon">⏳</div>
+        <div>
+          <h3 id="statusTitle">Application Pending Documents</h3>
+          <p id="statusDesc">Please complete the enrollment form below and upload your required documents for admission evaluation.</p>
+        </div>
+      </div>
+
+      <div class="enrollment-form-section">
+        <form id="enrollmentForm">
+          
+          <div class="form-section-title">1. Personal Information</div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="dob">Date of Birth <span style="color:red">*</span></label>
+              <input type="date" id="dob" class="form-control" required>
+              <span class="help-text">Applicants must be at least 21 years old.</span>
+            </div>
+            <div class="form-group">
+              <label for="nationality">Nationality <span style="color:red">*</span></label>
+              <input type="text" id="nationality" class="form-control" placeholder="e.g. Somaliland" required>
+            </div>
+            <div class="form-group">
+              <label for="nativeLang">Native Language <span style="color:red">*</span></label>
+              <select id="nativeLang" class="form-control" required>
+                <option value="">Select Language</option>
+                <option value="Somali">Somali</option>
+                <option value="Arabic">Arabic</option>
+                <option value="English">English</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-section-title">2. Educational Qualifications</div>
+          <p style="font-size: 14px; color: var(--aou-gray); margin-bottom: 20px;">
+            A high school diploma or equivalent (IGCSE/O-level) is required. Must have a minimum of 5 credits, including English and Mathematics.
+          </p>
+          <div class="form-grid">
+            <div class="form-group" style="grid-column: 1 / -1;">
+              <label for="hsName">High School / Institution Name</label>
+              <input type="text" id="hsName" class="form-control" placeholder="e.g. Hargeisa High School" required>
+            </div>
+            <div class="file-upload-wrapper" style="grid-column: 1 / -1;">
+              <label for="hsDiploma">Upload High School Diploma / IGCSE Certificate <span style="color:red">*</span></label>
+              <p>PDF, JPG, or PNG (Max 5MB). Certified copies only.</p>
+              <input type="file" id="hsDiploma" accept=".pdf,.jpg,.jpeg,.png" required>
+            </div>
+          </div>
+
+          <div class="form-section-title">3. English Proficiency</div>
+          <p style="font-size: 14px; color: var(--aou-gray); margin-bottom: 20px;">
+            Non-native English speakers must provide proof of English proficiency (IELTS, TOEFL, or take our Internal Placement Test).
+          </p>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="englishTest">Proficiency Evidence <span style="color:red">*</span></label>
+              <select id="englishTest" class="form-control" required>
+                <option value="">Select Option</option>
+                <option value="Native Speaker">I am a Native English Speaker</option>
+                <option value="IELTS">IELTS Certificate</option>
+                <option value="TOEFL">TOEFL Certificate</option>
+                <option value="Internal">I will take the AOU Internal Placement Test</option>
+              </select>
+            </div>
+            <div class="file-upload-wrapper" id="englishUploadWrapper">
+              <label for="englishCert">Upload IELTS/TOEFL Certificate</label>
+              <p>PDF, JPG, or PNG (Max 5MB).</p>
+              <input type="file" id="englishCert" accept=".pdf,.jpg,.jpeg,.png">
+            </div>
+          </div>
+
+          <div class="form-section-title">4. Advanced Placement / Transfer Students (Optional)</div>
+          <p style="font-size: 14px; color: var(--aou-gray); margin-bottom: 20px;">
+            For direct entry into Year Two or higher, please upload prior professional qualifications, Associate Degrees, or Diplomas.
+          </p>
+          <div class="file-upload-wrapper">
+            <label for="transferDocs">Upload Prior Higher Education Transcripts / Professional Qualifications</label>
+            <p>PDF, JPG, or PNG (Max 10MB). Combine into a single PDF if multiple.</p>
+            <input type="file" id="transferDocs" accept=".pdf,.jpg,.jpeg,.png">
+          </div>
+
+          <div style="margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--aou-border);">
+            <button type="submit" class="btn btn-navy" style="font-size: 16px; padding: 14px 32px;">Submit Application Documents</button>
+          </div>
+
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-bottom" style="border-top:none;padding-top:0;">
+        <p>&copy; 2026 American Open University – Hargeisa Branch. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Applicant specific logic
+      const loggedIn = localStorage.getItem('aou_logged_in');
+      const studentId = localStorage.getItem('aou_student_id');
+      const role = localStorage.getItem('aou_student_role');
+
+      if (!loggedIn || role !== 'Applicant') {
+        window.location.href = 'login.html';
+      }
+
+      document.getElementById('applicantName').textContent = localStorage.getItem('aou_student_name');
+      document.getElementById('applicantId').textContent = studentId;
+      document.getElementById('applicantProgram').textContent = localStorage.getItem('aou_student_program');
+
+      // Logout
+      const logout = (e) => {
+        e.preventDefault();
+        localStorage.clear();
+        window.location.href = 'login.html';
+      };
+      document.getElementById('logoutBtnTop').addEventListener('click', logout);
+      document.getElementById('logoutBtnNav').addEventListener('click', logout);
+
+      // Form submission
+      const form = document.getElementById('enrollmentForm');
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        // Age validation
+        const dobInput = document.getElementById('dob').value;
+        if(dobInput) {
+            const dobDate = new Date(dobInput);
+            const today = new Date();
+            let age = today.getFullYear() - dobDate.getFullYear();
+            const m = today.getMonth() - dobDate.getMonth();
+            if (m < 0 || (m === 0 && today.getDate() < dobDate.getDate())) {
+                age--;
+            }
+            if(age < 21) {
+                alert("Applicants must be at least 21 years old as per admission requirements.");
+                return;
+            }
+        }
+
+        // Simulate success
+        const banner = document.getElementById('statusBanner');
+        banner.style.background = '#dbeafe';
+        banner.style.borderLeftColor = '#3b82f6';
+        document.getElementById('statusTitle').textContent = 'Application Under Review';
+        document.getElementById('statusTitle').style.color = '#1e3a8a';
+        document.getElementById('statusDesc').textContent = 'Your documents have been submitted successfully and are being reviewed by the admissions office. You will be notified of the decision soon.';
+        document.getElementById('statusDesc').style.color = '#1e40af';
+        document.querySelector('.status-icon').textContent = '✅';
+        
+        form.style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      // English proficiency logic
+      const englishTest = document.getElementById('englishTest');
+      const englishUploadWrapper = document.getElementById('englishUploadWrapper');
+      
+      englishTest.addEventListener('change', (e) => {
+        if (e.target.value === 'IELTS' || e.target.value === 'TOEFL') {
+          englishUploadWrapper.style.display = 'block';
+          document.getElementById('englishCert').required = true;
+        } else {
+          englishUploadWrapper.style.display = 'none';
+          document.getElementById('englishCert').required = false;
+        }
+      });
+      // trigger once on load
+      englishTest.dispatchEvent(new Event('change'));
+    });
+  </script>
+</body>
+</html>

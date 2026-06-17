@@ -908,15 +908,26 @@ footer {
 }
 
 @media (max-width: 900px) {
+  .top-bar .container { flex-direction: column; gap: 8px; text-align: center; padding: 8px 16px; }
+  .top-bar span { font-size: 11px; display: block; line-height: 1.4; }
+  .top-bar .top-links { justify-content: center; flex-wrap: wrap; }
   nav { display: none !important; }
   .hamburger { display: flex; }
-  .site-logo img { width: 260px; }
-  .hero-banner h1 { font-size: 30px; }
+  .site-logo img { width: 220px; }
+  .hero-banner { padding: 50px 16px; }
+  .hero-banner h1 { font-size: 32px; }
+  .hero-cta { flex-direction: column; width: 100%; max-width: 320px; margin: 0 auto; }
+  .hero-cta .btn { width: 100%; }
   .footer-inner { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 600px) {
   .site-logo img { width: 160px; }
+  .site-logo .branch-label { font-size: 10px; letter-spacing: 2px; padding-top: 4px; margin-top: 4px; }
   .login-card { padding: 32px 20px; }
   .payment-card { padding: 24px 16px; }
+  .section-title { font-size: 24px; }
+  .dash-card { padding: 16px; }
+  .enrollment-form-section { padding: 20px; }
+  .applicant-hero h1 { font-size: 22px; }
 }

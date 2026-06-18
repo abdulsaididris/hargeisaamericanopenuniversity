@@ -14,17 +14,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ---- Student credentials ---- */
   const STUDENTS = {
-    'AOU-001': { password: 'Ahmed@2026',  name: 'Ahmed Hassan Mohamud',  program: 'B. Islamic Studies',     gpa: '3.8', credits: '45', balance: '$0',    status: 'Good Standing' },
-    'AOU-002': { password: 'Fadumo@2026', name: 'Fadumo Ali Jama',        program: 'B. Islamic Studies',     gpa: '3.5', credits: '30', balance: '$450',  status: 'Good Standing' },
-    'AOU-003': { password: 'Mohamed@2026',name: 'Mohamed Yusuf Aden',     program: 'Arabic Language',        gpa: '3.9', credits: '60', balance: '$0',    status: 'Good Standing' },
-    'AOU-004': { password: 'Amina@2026',  name: 'Amina Warsame Hashi',    program: 'B. Islamic Psychology',  gpa: '3.7', credits: '45', balance: '$0',    status: 'Good Standing' },
-    'AOU-005': { password: 'Abdi@2026',   name: 'Abdi Noor Ibrahim',      program: 'B. Islamic Studies',     gpa: '2.9', credits: '30', balance: '$450',  status: 'Academic Probation' },
-    'AOU-006': { password: 'Hodan@2026',  name: 'Hodan Omar Elmi',        program: "Qur'an Hifz Program",   gpa: '4.0', credits: '15', balance: '$0',    status: 'Good Standing' },
-    'AOU-007': { password: 'Sahra@2026',  name: 'Sahra Mohamed Duale',    program: 'Arabic Language',        gpa: '3.6', credits: '45', balance: '$0',    status: 'Good Standing' },
-    'AOU-008': { password: 'Yusuf@2026',  name: 'Yusuf Abdullahi Farah',  program: 'B. Islamic Studies',     gpa: '3.2', credits: '30', balance: '$450',  status: 'Suspended', role: 'Student' },
-    'AOU-009': { password: 'Faysal@2026', name: 'Faysal Hassan Guure',    program: 'B. Islamic Psychology',  gpa: '3.4', credits: '60', balance: '$0',    status: 'Good Standing', role: 'Student' },
-    'AOU-010': { password: 'Nasra@2026',  name: 'Nasra Ahmed Ismail',     program: 'B. Islamic Studies',     gpa: '3.7', credits: '75', balance: '$450',  status: 'Good Standing', role: 'Student' },
-    'APP-001': { password: 'Applicant@2026', name: 'Jama Ali Jama',       program: 'Undergraduate Direct Entry', gpa: 'N/A', credits: '0', balance: '$0', status: 'Pending Documents', role: 'Applicant' },
+    'AOU-001': { password: 'Ahmed@2026',  name: 'Ahmed Hassan Mohamud',  program: 'B. Islamic Studies',     level: 'Bachelor', gpa: '3.8', credits: '45', balance: '$0',    status: 'Good Standing' },
+    'AOU-002': { password: 'Fadumo@2026', name: 'Fadumo Ali Jama',        program: 'M. Islamic Studies',     level: 'Master',   gpa: '3.5', credits: '30', balance: '$260', status: 'Good Standing' },
+    'AOU-003': { password: 'Mohamed@2026',name: 'Mohamed Yusuf Aden',     program: 'Ph.D. Islamic Finance',  level: 'PhD',      gpa: '3.9', credits: '60', balance: '$0',    status: 'Good Standing' },
+    'AOU-004': { password: 'Amina@2026',  name: 'Amina Warsame Hashi',    program: 'B. Islamic Psychology',  level: 'Bachelor', gpa: '3.7', credits: '45', balance: '$0',    status: 'Good Standing' },
+    'AOU-005': { password: 'Abdi@2026',   name: 'Abdi Noor Ibrahim',      program: 'B. Islamic Studies',     level: 'Bachelor', gpa: '2.9', credits: '30', balance: '$130', status: 'Academic Probation' },
+    'AOU-006': { password: 'Hodan@2026',  name: 'Hodan Omar Elmi',        program: "Qur'an Hifz Program",    level: 'Bachelor', gpa: '4.0', credits: '15', balance: '$0',    status: 'Good Standing' },
+    'AOU-007': { password: 'Sahra@2026',  name: 'Sahra Mohamed Duale',    program: 'M. Arabic Language',     level: 'Master',   gpa: '3.6', credits: '45', balance: '$0',    status: 'Good Standing' },
+    'AOU-008': { password: 'Yusuf@2026',  name: 'Yusuf Abdullahi Farah',  program: 'B. Islamic Studies',     level: 'Bachelor', gpa: '3.2', credits: '30', balance: '$130', status: 'Suspended', role: 'Student' },
+    'AOU-009': { password: 'Faysal@2026', name: 'Faysal Hassan Guure',    program: 'Ph.D. Islamic Studies',  level: 'PhD',      gpa: '3.4', credits: '60', balance: '$0',    status: 'Good Standing', role: 'Student' },
+    'AOU-010': { password: 'Nasra@2026',  name: 'Nasra Ahmed Ismail',     program: 'B. Islamic Studies',     level: 'Bachelor', gpa: '3.7', credits: '75', balance: '$130', status: 'Good Standing', role: 'Student' },
+    'APP-001': { password: 'Applicant@2026', name: 'Jama Ali Jama',       program: 'Pending Enrollment',     level: 'Bachelor', gpa: 'N/A', credits: '0', balance: '$0', status: 'Pending Documents', role: 'Applicant' },
   };
 
   /* ---- Login form ---- */
@@ -47,6 +47,13 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('aou_student_balance',  student.balance);
         localStorage.setItem('aou_student_status',   student.status);
         localStorage.setItem('aou_student_role',     student.role || 'Student');
+        
+        // If an applicant logged in and we saved their specific level during apply, use it. Otherwise use the mock data level.
+        if (student.role === 'Applicant' && localStorage.getItem('aou_pending_applicant_level')) {
+          localStorage.setItem('aou_student_level', localStorage.getItem('aou_pending_applicant_level'));
+        } else {
+          localStorage.setItem('aou_student_level', student.level || 'Bachelor');
+        }
         
         if (student.role === 'Applicant') {
           window.location.href = 'pre-student-dashboard.html';

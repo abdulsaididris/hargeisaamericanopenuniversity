@@ -77,6 +77,15 @@
           <label for="phoneNum">Phone Number</label>
           <input type="tel" id="phoneNum" class="form-control" placeholder="e.g. +252 63 XXXXXXX" required>
         </div>
+        <div class="form-group">
+          <label for="programLevel">Program Level</label>
+          <select id="programLevel" class="form-control" required>
+            <option value="">Select Level</option>
+            <option value="Bachelor">Bachelor's Degree</option>
+            <option value="Master">Master's Degree</option>
+            <option value="PhD">Ph.D. Program</option>
+          </select>
+        </div>
 
         <button type="submit" class="btn btn-navy btn-full" id="applyBtn">Register for Applicant Portal</button>
       </form>
@@ -108,6 +117,10 @@
   <script>
     document.getElementById('applyForm').addEventListener('submit', function(e) {
       e.preventDefault();
+      
+      const level = document.getElementById('programLevel').value;
+      localStorage.setItem('aou_pending_applicant_level', level);
+      
       document.getElementById('applyForm').style.display = 'none';
       document.getElementById('applySuccess').style.display = 'block';
     });

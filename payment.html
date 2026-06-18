@@ -58,7 +58,7 @@
 
       <div class="payment-amount-block">
         <p>Amount Due</p>
-        <div class="amount">$450.00</div>
+        <div class="amount" id="tuitionAmountDisplay">$0.00</div>
         <div class="semester-label">Fall Semester 2026 &nbsp;·&nbsp; Deadline: Sept. 30, 2026</div>
       </div>
 
@@ -89,7 +89,7 @@
       <div class="payment-panel" id="panelDahabshiil">
         <div style="background:#f0f9ff;border:1px solid #bae6fd;border-radius:6px;padding:16px;margin-bottom:20px;font-size:13px;color:#0c4a6e;">
           <strong>Transfer Instructions:</strong><br>
-          Please send <strong>$450.00 USD</strong> to the AOU Hargeisa Branch Dahabshiil account:<br><br>
+          Please send <strong id="dahabshiilAmountDisplay">$0.00 USD</strong> to the AOU Hargeisa Branch Dahabshiil account:<br><br>
           <strong>Account Name:</strong> American Open University – Hargeisa<br>
           <strong>Account Number:</strong> HARG-12345<br>
           <strong>Reference:</strong> Your Student ID<br><br>
@@ -170,6 +170,15 @@
       document.getElementById('panelDahabshiil').classList.toggle('active', tab === 'dahabshiil');
     }
 
+    // Dynamic Tuition Calculation
+    const level = localStorage.getItem('aou_student_level') || 'Bachelor';
+    let tuitionAmount = 130;
+    if (level === 'Master') tuitionAmount = 260;
+    if (level === 'PhD') tuitionAmount = 500;
+    
+    document.getElementById('tuitionAmountDisplay').textContent = '$' + tuitionAmount.toFixed(2);
+    document.getElementById('dahabshiilAmountDisplay').textContent = '$' + tuitionAmount.toFixed(2) + ' USD';
+
     // PayPal Button
     window.addEventListener('load', () => {
       if (window.paypal) {
@@ -183,7 +192,7 @@
           createOrder: (data, actions) => {
             return actions.order.create({
               purchase_units: [{
-                amount: { value: '450.00' },
+                amount: { value: tuitionAmount.toFixed(2) },
                 description: 'AOU Hargeisa Branch – Fall Semester 2026 Tuition'
               }]
             });

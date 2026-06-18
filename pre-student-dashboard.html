@@ -247,6 +247,24 @@
         </form>
       </div>
 
+      <!-- APPLICATION FEE SECTION -->
+      <div id="applicationFeeSection" style="display:none; background:white; padding:32px; border-radius:8px; box-shadow:0 4px 20px rgba(0,0,0,0.06); margin-bottom:40px;">
+        <h2 style="font-size:20px; color:var(--aou-navy); margin-bottom:8px;">Pay Application Fee</h2>
+        <p style="font-size:14px; color:var(--aou-gray); margin-bottom:24px;">Your application requires a non-refundable application fee. Please complete this payment to submit your application.</p>
+        
+        <div style="background:#f9fafb; padding:16px; border-radius:6px; margin-bottom:24px; text-align:center; border: 1px solid #e5e7eb;">
+          <span style="display:block; font-size:13px; color:#6b7280; text-transform:uppercase; letter-spacing:1px; margin-bottom:4px;">Amount Due</span>
+          <span id="appFeeAmountDisplay" style="display:block; font-size:32px; font-weight:700; color:var(--aou-navy);">$20.00</span>
+        </div>
+
+        <h3 style="font-size:15px;margin-bottom:12px;color:var(--aou-navy);">Select Payment Method</h3>
+        <div style="display:flex; gap:12px; margin-bottom:20px;">
+          <button type="button" class="btn btn-navy" style="flex:1;" onclick="completeAppPayment('PayPal')">Pay with PayPal</button>
+          <button type="button" class="btn btn-gold" style="flex:1;" onclick="completeAppPayment('Dahabshiil')">Dahabshiil Transfer</button>
+        </div>
+        <p style="font-size:11px;color:#9ca3af;text-align:center;">(Clicking these buttons simulates a successful payment for this demo)</p>
+      </div>
+
     </div>
   </div>
 
@@ -305,19 +323,44 @@
             }
         }
 
-        // Simulate success
+        // Show Payment Section instead of Success
+        const level = localStorage.getItem('aou_student_level') || 'Bachelor';
+        let fee = 20;
+        if (level === 'Master') fee = 30;
+        if (level === 'PhD') fee = 100;
+        
+        document.getElementById('appFeeAmountDisplay').textContent = '$' + fee + '.00';
+        
+        form.style.display = 'none';
+        document.getElementById('applicationFeeSection').style.display = 'block';
+        
+        const banner = document.getElementById('statusBanner');
+        banner.style.background = '#e0e7ff';
+        banner.style.borderLeftColor = '#4f46e5';
+        document.getElementById('statusTitle').textContent = 'Pending Application Fee';
+        document.getElementById('statusTitle').style.color = '#312e81';
+        document.getElementById('statusDesc').textContent = 'Please complete your application fee payment below to finalize your submission.';
+        document.getElementById('statusDesc').style.color = '#3730a3';
+        document.querySelector('.status-icon').textContent = '💳';
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      // Handle Application Fee Payment
+      window.completeAppPayment = function(method) {
+        document.getElementById('applicationFeeSection').style.display = 'none';
+        
         const banner = document.getElementById('statusBanner');
         banner.style.background = '#dbeafe';
         banner.style.borderLeftColor = '#3b82f6';
         document.getElementById('statusTitle').textContent = 'Application Under Review';
         document.getElementById('statusTitle').style.color = '#1e3a8a';
-        document.getElementById('statusDesc').textContent = 'Your documents have been submitted successfully and are being reviewed by the admissions office. You will be notified of the decision soon.';
+        document.getElementById('statusDesc').textContent = `Payment via ${method} successful! Your documents have been submitted and are being reviewed by the admissions office.`;
         document.getElementById('statusDesc').style.color = '#1e40af';
         document.querySelector('.status-icon').textContent = '✅';
         
-        form.style.display = 'none';
         window.scrollTo({ top: 0, behavior: 'smooth' });
-      });
+      };
 
       // English proficiency logic
       const englishTest = document.getElementById('englishTest');

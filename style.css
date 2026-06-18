@@ -88,7 +88,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 24px 40px;
+  padding: 16px 40px;
   max-width: 1400px;
   margin: 0 auto;
 }
@@ -103,7 +103,7 @@ header {
 }
 
 .site-logo img {
-  width: 480px;
+  width: 240px;
   height: auto;
   display: block;
   object-fit: contain;
@@ -898,12 +898,10 @@ footer {
    RESPONSIVE
    ============================================= */
 @media (max-width: 1300px) {
-  .site-logo img { width: 380px; }
-  .header-inner { padding: 20px 28px; }
+  .header-inner { padding: 16px 28px; }
 }
 
 @media (max-width: 1100px) {
-  .site-logo img { width: 300px; }
   .header-inner { padding: 16px 24px; }
 }
 

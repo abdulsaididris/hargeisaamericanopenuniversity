@@ -922,9 +922,9 @@ footer {
 }
 
 @media (max-width: 600px) {
-  .header-inner { padding: 32px 20px; }
-  .site-logo img { width: 300px; max-width: 100%; }
-  .site-logo .branch-label { font-size: 13px; letter-spacing: 4px; padding-top: 6px; margin-top: 6px; border-top-width: 3px; }
+  .header-inner { padding: 16px 20px; }
+  .site-logo img { width: 200px; max-width: 100%; }
+  .site-logo .branch-label { font-size: 11px; letter-spacing: 2.5px; padding-top: 4px; margin-top: 4px; border-top-width: 2px; }
   .login-card { padding: 32px 20px; }
   .payment-card { padding: 24px 16px; }
   .section-title { font-size: 24px; }

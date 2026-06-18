@@ -8,6 +8,12 @@
   <link rel="stylesheet" href="style.css">
   <!-- PayPal Sandbox SDK (replace sb with your live Client ID for production) -->
   <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD" defer></script>
+  <!-- Auth guard to prevent FOUC -->
+  <script>
+    if (localStorage.getItem('aou_logged_in') !== 'true') {
+      window.location.href = 'login.html';
+    }
+  </script>
 </head>
 <body>
 
@@ -146,10 +152,7 @@
 
   <script src="script.js"></script>
   <script>
-    // Auth guard
-    if (localStorage.getItem('aou_logged_in') !== 'true') {
-      window.location.href = 'login.html';
-    }
+    // Auth guard moved to head
 
     // Logout
     ['logoutBtnNav','logoutMobile'].forEach(id => {

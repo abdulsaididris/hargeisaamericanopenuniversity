@@ -6,6 +6,12 @@
   <meta name="description" content="Student Dashboard – AOU Hargeisa Branch">
   <title>Student Dashboard | AOU Hargeisa Branch</title>
   <link rel="stylesheet" href="style.css">
+  <!-- Auth guard to prevent FOUC -->
+  <script>
+    if (localStorage.getItem('aou_logged_in') !== 'true') {
+      window.location.href = 'login.html';
+    }
+  </script>
 </head>
 <body>
 
@@ -152,10 +158,7 @@
 
   <script src="script.js"></script>
   <script>
-    // Auth guard
-    if (localStorage.getItem('aou_logged_in') !== 'true') {
-      window.location.href = 'login.html';
-    }
+    // Auth guard moved to head
 
     // Populate student data from localStorage
     const sid      = localStorage.getItem('aou_student_id')      || '';

@@ -116,6 +116,14 @@
       display: block;
     }
   </style>
+  <!-- Auth guard to prevent FOUC -->
+  <script>
+    const loggedIn = localStorage.getItem('aou_logged_in');
+    const role = localStorage.getItem('aou_student_role');
+    if (!loggedIn || role !== 'Applicant') {
+      window.location.href = 'login.html';
+    }
+  </script>
 </head>
 <body>
 
@@ -285,9 +293,7 @@
       const studentId = localStorage.getItem('aou_student_id');
       const role = localStorage.getItem('aou_student_role');
 
-      if (!loggedIn || role !== 'Applicant') {
-        window.location.href = 'login.html';
-      }
+      // Auth guard moved to head
 
       document.getElementById('applicantName').textContent = localStorage.getItem('aou_student_name');
       document.getElementById('applicantId').textContent = studentId;
